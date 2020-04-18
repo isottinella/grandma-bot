@@ -3,7 +3,7 @@
 ;; Filename: README.md
 ;; Author: Louise <louise>
 ;; Created: Sat Apr 18 18:42:21 2020 (+0200)
-;; Last-Updated: Sat Apr 18 18:43:22 2020 (+0200)
+;; Last-Updated: Sat Apr 18 20:47:19 2020 (+0200)
 ;;           By: Louise <louise>
  -->
 # Readme
@@ -20,4 +20,4 @@ Configurating and running the program is done so:
 
 To use the program in development mode, it's easy, just run the program :
 
-	python3 -m main
+	FLASK_DEBUG=true python3 -m main
