@@ -4,7 +4,11 @@
     <meta charset="utf8" />
     <title>GrandPy Bot</title>
     <link rel="stylesheet" href="{{ url_for('webapp.static', filename = 'style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Raleway:wght@200;400&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Raleway:wght@200&display=swap" rel="stylesheet">
+
+    <script type="text/javascript">$API_ROOT = {{ api_root|tojson|safe }};</script>
+    <script type="text/javascript" src="{{ url_for('webapp.static', filename = 'jquery-3.5.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('webapp.static', filename = 'app.js') }}"></script>
   </head>
   <body>
     <div id="container">
@@ -14,11 +18,12 @@
       </header>
       
       <div id="main">
-	<textarea disabled id="dialogue">
-	</textarea>
+	<div id="dialogue">
+	  {{ request.script_root }}
+	</div>
 	<div id="input">
-	  <input />
-	  <button>Envoyer</button>
+	  <input id="textinput"/>
+	  <button id="submit">Envoyer</button>
 	</div>
       </div>
 

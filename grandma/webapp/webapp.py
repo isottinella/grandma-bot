@@ -3,10 +3,10 @@
 # Filename: blueprint.py
 # Author: Louise <louise>
 # Created: Sat Apr 18 18:53:26 2020 (+0200)
-# Last-Updated: Sat Apr 18 20:43:39 2020 (+0200)
+# Last-Updated: Sun Apr 19 03:21:49 2020 (+0200)
 #           By: Louise <louise>
 # 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, url_for
 
 webapp_blueprint = Blueprint('webapp',
                    __name__,
@@ -17,4 +17,6 @@ webapp_blueprint = Blueprint('webapp',
 
 @webapp_blueprint.route('/')
 def index():
-    return render_template("index.jinja2")
+    api_root = url_for('api.index', _external = True)
+        
+    return render_template("index.jinja2", api_root = api_root)

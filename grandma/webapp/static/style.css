@@ -3,7 +3,7 @@
 ;; Filename: style.css
 ;; Author: Louise <louise>
 ;; Created: Sat Apr 18 19:05:08 2020 (+0200)
-;; Last-Updated: Sat Apr 18 20:24:09 2020 (+0200)
+;; Last-Updated: Sun Apr 19 03:10:29 2020 (+0200)
 ;;           By: Louise <louise>
 */
 
@@ -14,8 +14,6 @@ html, body, #container {
     margin: 0;
 
     background-color: #eed6ca;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 400;
 }
 
 #container {
@@ -60,6 +58,9 @@ header > #title {
 
 #main > #dialogue {
     flex-grow: 1;
+
+    background-color: #fff;
+    border: 1px solid #ddd;
 }
 
 #main > #input {
@@ -73,5 +74,7 @@ header > #title {
 /* Footer */
 footer {
     height: 1.3em;
+
+    font-family: 'Raleway', sans-serif;
     font-weight: 200;
 }
