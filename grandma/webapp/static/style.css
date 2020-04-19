@@ -3,13 +3,16 @@
 ;; Filename: style.css
 ;; Author: Louise <louise>
 ;; Created: Sat Apr 18 19:05:08 2020 (+0200)
-;; Last-Updated: Sun Apr 19 03:10:29 2020 (+0200)
+;; Last-Updated: Sun Apr 19 20:09:06 2020 (+0200)
 ;;           By: Louise <louise>
 */
 
 /* General */
+* { box-sizing: border-box; }
 html, body, #container {
     min-height: 100vh;
+    max-height: 100vh;
+    width: 100vw;
     padding: 0;
     margin: 0;
 
@@ -29,6 +32,7 @@ header, footer {
 /* Header */
 header {
     height: 10vh;
+    width: 100%;
     padding: 0 2em;
     display: flex;
     align-items: center;
@@ -58,7 +62,11 @@ header > #title {
 
 #main > #dialogue {
     flex-grow: 1;
-
+    height: 1px; /* Necessary for overflow to have an effect */
+    width: 100%;
+    
+    overflow: auto;
+    
     background-color: #fff;
     border: 1px solid #ddd;
 }
@@ -67,12 +75,13 @@ header > #title {
     display: flex;
 }
 
-#main > #input > input {
+#main > #input > #textinput {
     flex-grow: 1;
 }
 
 /* Footer */
 footer {
+    width: 100%;
     height: 1.3em;
 
     font-family: 'Raleway', sans-serif;

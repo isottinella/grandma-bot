@@ -2,11 +2,14 @@
 <html>
   <head>
     <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>GrandPy Bot</title>
+    
     <link rel="stylesheet" href="{{ url_for('webapp.static', filename = 'style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Raleway:wght@200&display=swap" rel="stylesheet">
 
-    <script type="text/javascript">$API_ROOT = {{ api_root|tojson|safe }};</script>
+    <script type="text/javascript">$API_ROOT = {{ url_for('api.query', _external=True)|tojson|safe }};</script>
     <script type="text/javascript" src="{{ url_for('webapp.static', filename = 'jquery-3.5.0.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('webapp.static', filename = 'app.js') }}"></script>
   </head>
