@@ -4,5 +4,5 @@
 # Virtual environment
 env/
 
-# Config
-config.py
+# Egg info
+grandma.egg-info
