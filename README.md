@@ -3,7 +3,7 @@
 ;; Filename: README.md
 ;; Author: Louise <louise>
 ;; Created: Sat Apr 18 18:42:21 2020 (+0200)
-;; Last-Updated: Sun Apr 19 02:48:45 2020 (+0200)
+;; Last-Updated: Sun Apr 19 02:53:50 2020 (+0200)
 ;;           By: Louise <louise>
  -->
 # Readme
@@ -13,7 +13,7 @@
 Configurating and running the program is done so: 
 
  - Create a virtual environment by running `virtualenv -p python3 env && . env/bin/activate`
- - Install the module by running `pip install -e grandma`
+ - Install the module by running `pip install .`
 
 ## Use
 
