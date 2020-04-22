@@ -3,7 +3,7 @@
 # Filename: bot.py
 # Author: Louise <louise>
 # Created: Sun Apr 19 02:22:35 2020 (+0200)
-# Last-Updated: Thu Apr 23 01:14:48 2020 (+0200)
+# Last-Updated: Thu Apr 23 01:27:21 2020 (+0200)
 #           By: Louise <louise>
 #
 import requests, json, string, base64
@@ -47,8 +47,9 @@ class Query():
             return # Having no address is a fatal error.
         
         self.staticmap = self.get_staticmap(self.address)
-        print(self.staticmap)
-        
+        if self.staticmap is None: # This is not a fatal error
+            self.errors.append("no-static-map")
+
         self.message = self.address.formatted_address
 
     @staticmethod

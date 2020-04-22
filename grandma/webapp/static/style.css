@@ -3,7 +3,7 @@
 ;; Filename: style.css
 ;; Author: Louise <louise>
 ;; Created: Sat Apr 18 19:05:08 2020 (+0200)
-;; Last-Updated: Sun Apr 19 20:09:06 2020 (+0200)
+;; Last-Updated: Thu Apr 23 01:31:17 2020 (+0200)
 ;;           By: Louise <louise>
 */
 
@@ -70,6 +70,15 @@ header > #title {
     background-color: #fff;
     border: 1px solid #ddd;
 }
+
+#dialogue > .message {
+    display: flex;
+}
+
+#dialogue > .message > img {
+    margin-left: 1em;
+    width: 60%; 
+} 
 
 #main > #input {
     display: flex;

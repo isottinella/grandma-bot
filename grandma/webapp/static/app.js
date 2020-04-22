@@ -14,9 +14,12 @@ function whatDidISay() {
 
 function grandMaSays(data) {
     someoneSays("[GrandMa] ", data.message);
-    someoneSays("[GrandMa] ", ("<img src=\"" +
-			       data.staticmap +
-			       "\" />"));
+
+    if (data.errors.indexOf("no-static-map") == -1) {
+	someoneSays("[GrandMa] ", ("<img src=\"" +
+				   data.staticmap +
+				   "\" />"));
+    }
 }
 
 function emptyInput() {
