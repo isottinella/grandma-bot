@@ -4,25 +4,35 @@ function someoneSays(name, content, end = "<br />") {
     $("div#dialogue").append(end)
 }
 
-function iSay() {
-    var value = $("#textinput").val();
-    someoneSays("[Moi] ", value);
-
-    return value;
+function whatDidISay() {
+    return $("#textinput").val().trim();
 }
 
-function grandMaSays(html) {
-    someoneSays("[GrandMa] ", html);
+function grandMaSays(data) {
+    someoneSays("[GrandMa] ", data.message);
 }
+
+function emptyInput() {
+    $("#textinput").val("");
+}
+
+// Bind Enter key to submit button
+$(document).keypress(function(e){
+    if (e.which == 13){
+        $("button#submit").click();
+    }
+});
 
 $(function() {
-    $("button#submit").bind('click', function() {
-	var query = iSay();
+    $("button#submit").click(function() {
+	var query = whatDidISay();
 
-	$.getJSON($API_ROOT,
-		  {query: query},
-		  function(data) {
-		      grandMaSays(data.message);
-		  });
+	if (query != "") {
+	    emptyInput();
+	    someoneSays("[Moi] ", query);
+	    $.getJSON($API_ROOT,
+		      {query: query},
+		      grandMaSays);
+	}
     });
 })

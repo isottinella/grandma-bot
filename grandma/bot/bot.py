@@ -3,7 +3,7 @@
 # Filename: bot.py
 # Author: Louise <louise>
 # Created: Sun Apr 19 02:22:35 2020 (+0200)
-# Last-Updated: Wed Apr 22 17:28:10 2020 (+0200)
+# Last-Updated: Wed Apr 22 21:09:25 2020 (+0200)
 #           By: Louise <louise>
 #
 import requests, json, string
@@ -31,6 +31,11 @@ class Query():
     
     def __init__(self, query):
         self.query = self.purify_query(query)
+        if not self.query:
+            self.state = "no-address"
+            self.message = ("Désolée, mais il ne me semble pas que tu m'ais "
+                            "demandé un lieu précis…")
+            return # Having no query except for stopwords is a fatal error
         
         self.address = self.get_address(self.query)
         if self.address is None:
@@ -64,8 +69,11 @@ class Query():
         
     @staticmethod
     def get_address(query):
-        json = Query.get_address_json(query)
-        return None if json is None else Address(json)
+        try:
+            json = Query.get_address_json(query)
+            return None if json is None else Address(json)
+        except KeyError:
+            return None
         
     @staticmethod
     def get_address_json(query):
@@ -92,7 +100,7 @@ class Address():
     def __init__(self, json):
         self.formatted_address = json["formatted_address"]
         self.location = json["geometry"]["location"]
-
+        
         # Find the street name
         for component in json["address_components"]:
             if "route" in component["types"]:
