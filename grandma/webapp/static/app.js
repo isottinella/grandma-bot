@@ -1,7 +1,11 @@
 function someoneSays(name, content, end = "<br />") {
-    $("div#dialogue").append(name)
-    $("div#dialogue").append(content)
-    $("div#dialogue").append(end)
+    var new_message = $("<div></div>").addClass("message");
+    
+    new_message.append(name);
+    new_message.append(content);
+    new_message.append(end);
+    
+    $("div#dialogue").append(new_message);
 }
 
 function whatDidISay() {
@@ -10,6 +14,9 @@ function whatDidISay() {
 
 function grandMaSays(data) {
     someoneSays("[GrandMa] ", data.message);
+    someoneSays("[GrandMa] ", ("<img src=\"" +
+			       data.staticmap +
+			       "\" />"));
 }
 
 function emptyInput() {

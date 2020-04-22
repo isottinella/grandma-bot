@@ -3,7 +3,7 @@
 # Filename: config.py.tmpl
 # Author: Louise <louise>
 # Created: Sat Apr 18 20:49:13 2020 (+0200)
-# Last-Updated: Tue Apr 21 23:49:11 2020 (+0200)
+# Last-Updated: Thu Apr 23 00:58:05 2020 (+0200)
 #           By: Louise <louise>
 # 
 import os, json
@@ -13,7 +13,9 @@ class Config:
         'PLACES_ENDPOINT': "https://maps.googleapis.com/maps/api/geocode/json",
         'STATIC_ENDPOINT': "https://maps.googleapis.com/maps/api/staticmap",
         'KEY': os.environ.get("GMAPS_API_KEY"),
-        'REGION': "FR"
+        'REGION': "FR",
+        'MAP_SIZE': "500x300",
+        'MAP_ZOOM': "16"
     }
 
     WIKI_API = {

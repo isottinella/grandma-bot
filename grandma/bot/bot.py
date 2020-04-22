@@ -3,10 +3,10 @@
 # Filename: bot.py
 # Author: Louise <louise>
 # Created: Sun Apr 19 02:22:35 2020 (+0200)
-# Last-Updated: Wed Apr 22 21:09:25 2020 (+0200)
+# Last-Updated: Thu Apr 23 01:14:48 2020 (+0200)
 #           By: Louise <louise>
 #
-import requests, json, string
+import requests, json, string, base64
 from pathlib import Path
 from flask import current_app
 from grandma.config import Config
@@ -30,21 +30,24 @@ class Query():
     PUNCTUATION = string.punctuation.replace("-", "")
     
     def __init__(self, query):
+        self.errors = []
+        
         self.query = self.purify_query(query)
         if not self.query:
-            self.state = "no-address"
+            self.errors.append("no-address")
             self.message = ("Désolée, mais il ne me semble pas que tu m'ais "
                             "demandé un lieu précis…")
             return # Having no query except for stopwords is a fatal error
         
         self.address = self.get_address(self.query)
         if self.address is None:
-            self.state = "no-address"
+            self.errors.append("no-address")
             self.message = ("Désolée ! Il me semble que je ne connais pas ce "
                             "dont tu parles…")
             return # Having no address is a fatal error.
         
-        self.static_map = self.get_staticmap(self.address)
+        self.staticmap = self.get_staticmap(self.address)
+        print(self.staticmap)
         
         self.message = self.address.formatted_address
 
@@ -83,9 +86,9 @@ class Query():
             "key": Config.GMAPS_API["KEY"]
         }
 
-        res = requests.get(Config.GMAPS_API["PLACES_ENDPOINT"],
-                           params = parameters)
         try:
+            res = requests.get(Config.GMAPS_API["PLACES_ENDPOINT"],
+                               params = parameters)
             return res.json()["results"][0]
         except IndexError:
             return None
@@ -94,7 +97,31 @@ class Query():
 
     @staticmethod
     def get_staticmap(address):
-        return None
+        parameters = {
+            "size": Config.GMAPS_API["MAP_SIZE"],
+            "zoom": Config.GMAPS_API["MAP_ZOOM"],
+            "key":  Config.GMAPS_API["KEY"],
+            "center": "{},{}".format(address.location["lat"],
+                                     address.location["lng"]),
+            
+            "markers": "{},{}".format(address.location["lat"],
+                                     address.location["lng"])
+        }
+
+        try:
+            res = requests.get(Config.GMAPS_API["STATIC_ENDPOINT"],
+                               params = parameters,
+                               stream = True)
+            
+            if res.headers["content-type"] == "image/png":
+                return "data:image/png;base64, {}".format(
+                    base64.b64encode(res.content).decode()
+                )
+            else:
+                return None
+        except requests.exceptions.ConnectionError:
+            return None
+            
 
 class Address():
     def __init__(self, json):
