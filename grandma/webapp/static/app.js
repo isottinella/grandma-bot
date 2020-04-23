@@ -6,6 +6,12 @@ function someoneSays(name, content, end = "<br />") {
     new_message.append(end);
     
     $("div#dialogue").append(new_message);
+    scrollDown();
+}
+
+function scrollDown() {
+    var elmnt = $("div#dialogue");
+    elmnt.scrollTop(elmnt.prop("scrollHeight"));
 }
 
 function whatDidISay() {
