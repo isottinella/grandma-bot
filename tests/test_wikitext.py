@@ -3,7 +3,7 @@
 # Filename: test_wikitext.py
 # Author: Louise <louise>
 # Created: Thu Apr 23 19:32:45 2020 (+0200)
-# Last-Updated: Thu Apr 23 20:04:57 2020 (+0200)
+# Last-Updated: Thu Apr 23 20:34:26 2020 (+0200)
 #           By: Louise <louise>
 #
 import json
@@ -22,7 +22,7 @@ class Test_WikiText:
     def test_no_query(self, monkeypatch):
         patch_requests_assert_false(monkeypatch)
 
-        wikitext = WikiText("")
+        wikitext = WikiText(None)
         assert wikitext.status == False
         
     def test_no_extract_when_no_result(self, monkeypatch):
@@ -46,3 +46,9 @@ class Test_WikiText:
         monkeypatch.setattr(requests, "get", requests_get)
 
         wikitext = WikiText("cité paradis")
+
+    def test_no_internet(self, monkeypatch):
+        patch_requests_no_internet(monkeypatch)
+        wikitext = WikiText("cité paradis")
+
+        assert wikitext.status == False

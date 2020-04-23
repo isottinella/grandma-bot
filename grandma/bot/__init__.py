@@ -3,7 +3,7 @@
 # Filename: __init__.py
 # Author: Louise <louise>
 # Created: Sun Apr 19 02:22:08 2020 (+0200)
-# Last-Updated: Thu Apr 23 18:52:40 2020 (+0200)
+# Last-Updated: Thu Apr 23 20:10:30 2020 (+0200)
 #           By: Louise <louise>
 #
 """
@@ -155,8 +155,6 @@ class Address():
             self.location = json_result["geometry"]["location"]
             self.route = Address.get_route(json_result)
             self.status = True
-        except KeyError: # JSON malformation
-            self.status = False
         except IndexError: # No results
             self.status = False
         except requests.exceptions.ConnectionError:
@@ -228,8 +226,6 @@ class WikiText:
         except ValueError: # There was no query
             self.status = False
         except IndexError: # No results
-            self.status = False
-        except KeyError: # JSON malformation
             self.status = False
         except requests.exceptions.ConnectionError: # Couldn't connect
             self.status = False
