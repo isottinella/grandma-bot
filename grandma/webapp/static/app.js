@@ -5,7 +5,7 @@ function someoneSays(name, content, end = "<br />") {
     new_message.append(content);
     new_message.append(end);
     
-    $("div#dialogue").append(new_message);
+    $("div#dialogue > div#messages").append(new_message);
     scrollDown();
 }
 
@@ -51,6 +51,13 @@ $(document).keypress(function(e){
     if (e.which == 13){
         $("button#submit").click();
     }
+});
+
+// Setup loading indicator
+$(document).ajaxStart(function() {
+    $("img#loading").show();
+}).ajaxStop(function() {
+    $("img#loading").hide();
 });
 
 $(function() {

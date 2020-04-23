@@ -22,7 +22,10 @@
       
       <div id="main">
 	<div id="dialogue">
-	  {{ request.script_root }}
+	  <div id="messages">
+
+	  </div>
+	  <img id="loading" src="{{ url_for('webapp.static', filename = 'ajax-loader.gif') }}" />
 	</div>
 	<div id="input">
 	  <input id="textinput"/>

@@ -3,7 +3,7 @@
 ;; Filename: style.css
 ;; Author: Louise <louise>
 ;; Created: Sat Apr 18 19:05:08 2020 (+0200)
-;; Last-Updated: Thu Apr 23 01:39:58 2020 (+0200)
+;; Last-Updated: Thu Apr 23 21:23:57 2020 (+0200)
 ;;           By: Louise <louise>
 */
 
@@ -86,6 +86,10 @@ header > #title {
 
 #main > #input > #textinput {
     flex-grow: 1;
+}
+
+#loading {
+    display: none
 }
 
 /* Footer */
