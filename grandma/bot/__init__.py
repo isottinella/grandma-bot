@@ -89,13 +89,13 @@ class Query():
         self.error_occured("no-address")
         self.error_occured("no-static-map")
         self.error_occured("no-wiki-text")
-        
+
     def error_occured(self, error):
         """
         Add an element to the list of errors.
         """
         self.errors.append(error)
-        
+
     def get_messages(self):
         """
         Assign a random message to the address and to the funfact.

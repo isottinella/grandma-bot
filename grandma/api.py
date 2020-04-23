@@ -32,7 +32,7 @@ def query_endpoint():
     return jsonify({
         "errors": query.errors,
         "error_message": query.error_message,
-        
+
         "messages": getattr(query, "messages", None),
         "staticmap": getattr(query, "staticmap", None)
     })
