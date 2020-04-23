@@ -1,0 +1,10 @@
+{
+    "ADDRESS": [
+	"Bien sûr mon poussin ! Voici l'adresse que tu recherches : {address}.",
+	"Évidemment que je sais où c'est ! C'est là : {address}."
+    ],
+    "FUNFACT": [
+	"Mais t'ai-je déjà raconté l'histoire de cet endroit ? {fact}",
+	"Est-ce que tu veux savoir une information amusante dessus ? {fact} Amusant, n'est-ce pas ?"
+    ]
+}

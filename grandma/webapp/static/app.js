@@ -19,12 +19,16 @@ function whatDidISay() {
 }
 
 function grandMaSays(data) {
-    someoneSays("[GrandMa] ", data.message);
+    someoneSays("[GrandMa] ", data.address);
 
     if (data.errors.indexOf("no-static-map") == -1) {
 	someoneSays("[GrandMa] ", ("<img src=\"" +
 				   data.staticmap +
 				   "\" />"));
+    }
+
+    if (data.errors.indexOf("no-wiki-text") == -1) {
+	someoneSays("[GrandMa] ", data.funfact);
     }
 }
 

@@ -1,9 +1,9 @@
-# config.py.tmpl --- 
+# config.py --- 
 # 
-# Filename: config.py.tmpl
+# Filename: config.py
 # Author: Louise <louise>
 # Created: Sat Apr 18 20:49:13 2020 (+0200)
-# Last-Updated: Thu Apr 23 00:58:05 2020 (+0200)
+# Last-Updated: Thu Apr 23 16:45:18 2020 (+0200)
 #           By: Louise <louise>
 # 
 import os, json
