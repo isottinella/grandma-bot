@@ -3,7 +3,7 @@
 # Filename: __init__.py
 # Author: Louise <louise>
 # Created: Sun Apr 19 02:22:08 2020 (+0200)
-# Last-Updated: Thu Apr 23 20:10:30 2020 (+0200)
+# Last-Updated: Thu Apr 23 20:45:32 2020 (+0200)
 #           By: Louise <louise>
 #
 """
@@ -224,6 +224,8 @@ class WikiText:
             self.text = self.get_pagetext(self.pageid)
             self.status = True
         except ValueError: # There was no query
+            self.status = False
+        except KeyError: # Page returned by first call was bad
             self.status = False
         except IndexError: # No results
             self.status = False
