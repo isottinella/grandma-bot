@@ -3,13 +3,13 @@
 # Filename: test_wikitext.py
 # Author: Louise <louise>
 # Created: Thu Apr 23 19:32:45 2020 (+0200)
-# Last-Updated: Thu Apr 23 19:54:04 2020 (+0200)
+# Last-Updated: Thu Apr 23 20:04:57 2020 (+0200)
 #           By: Louise <louise>
 #
 import json
 import requests
 from grandma.bot import WikiText
-from .helpers import patch_requests_no_internet
+from .helpers import patch_requests_no_internet, patch_requests_assert_false
 from .helpers import patch_wiki_openclassrooms
 
 class Test_WikiText:
@@ -19,6 +19,12 @@ class Test_WikiText:
         wikitext = WikiText("cité paradis")
         assert wikitext.text == "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris."
 
+    def test_no_query(self, monkeypatch):
+        patch_requests_assert_false(monkeypatch)
+
+        wikitext = WikiText("")
+        assert wikitext.status == False
+        
     def test_no_extract_when_no_result(self, monkeypatch):
         """
         This test tests that the code doesn't fetch an extract when
@@ -29,6 +35,7 @@ class Test_WikiText:
             # is a request for an extract, and so there's been
             # a second request, and there shouldn't have been.
             assert "srsearch" in params
+            
             class Dummy:
                 def __init__(self):
                     pass

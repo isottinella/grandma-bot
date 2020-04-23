@@ -3,7 +3,7 @@
 # Filename: test_query.py
 # Author: Louise <louise>
 # Created: Tue Apr 21 18:57:33 2020 (+0200)
-# Last-Updated: Thu Apr 23 19:49:29 2020 (+0200)
+# Last-Updated: Thu Apr 23 19:59:27 2020 (+0200)
 #           By: Louise <louise>
 #
 import json
@@ -20,6 +20,14 @@ class TestQuery:
                            "quelle est l'adresse d'openclassrooms")
         assert pure == "openclassrooms"
 
+    def test_empty_query(self):
+        query = Query("")
+
+        assert "no-address" in query.errors
+        assert "no-static-map" in query.errors
+        assert "no-wiki-text" in query.errors
+        assert "error-message" in query.errors
+        
     def test_failed_request(self, monkeypatch):
         patch_requests_no_internet(monkeypatch)
         

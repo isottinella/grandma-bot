@@ -3,7 +3,7 @@
 # Filename: helpers.py
 # Author: Louise <louise>
 # Created: Thu Apr 23 19:12:16 2020 (+0200)
-# Last-Updated: Thu Apr 23 19:50:53 2020 (+0200)
+# Last-Updated: Thu Apr 23 20:03:40 2020 (+0200)
 #           By: Louise <louise>
 # 
 import json
@@ -53,7 +53,16 @@ def patch_wiki_empty(monkeypatch):
     monkeypatch.setattr(requests, "get", requests_get)
     
 def patch_requests_no_internet(monkeypatch):
-    def failed_request(url, params = []):
+    def failed_request(url, params = {}):
         raise requests.exceptions.ConnectionError
         
     monkeypatch.setattr(requests, "get", failed_request)
+
+def patch_requests_assert_false(monkeypatch):
+    """
+    This function is useful to guarantee no requests is made.
+    """
+    def requests_get(url, params = {}):
+        assert False
+
+    monkeypatch.setattr(requests, "get", requests_get)
