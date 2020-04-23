@@ -3,7 +3,7 @@
 # Filename: __init__.py
 # Author: Louise <louise>
 # Created: Sun Apr 19 02:22:08 2020 (+0200)
-# Last-Updated: Thu Apr 23 18:22:33 2020 (+0200)
+# Last-Updated: Thu Apr 23 18:52:40 2020 (+0200)
 #           By: Louise <louise>
 #
 """
@@ -23,22 +23,13 @@ class Query():
     Purifies a query and does all that is necessary (searching address,
     staticmap and text from Wikipedia).
     """
-    # We load all stopwords as class constants
-    with open(Path(__loader__.path).parent / "stopwords_fr.json") as file:
-        STOPWORDS_FR = json.load(file)
-    STOPWORDS_QUESTION = ["connais", "cherche", "sais", "penses", "quoi",
-                          "dis", "entendu", "parlé", "est-ce", "connaitrais"]
-    STOPWORDS_COORD = ["adresse", "emplacement", "endroit", "lieu", "lieu",
-                       "place", "coordonnées"]
-    STOPWORDS_PHATIQUE = ["salut", "bonjour", "coucou", "ciao", "yo", "salve",
-                          "ave", "salutations", "wesh", "grandpy", "grandma",
-                          "mamie", "mamy", "mémé", "papi", "papy",
-                          "pépé", "grand-mère", "grand-père"]
-    STOPWORDS = (STOPWORDS_FR + STOPWORDS_QUESTION + STOPWORDS_COORD
-                 + STOPWORDS_PHATIQUE)
+    # We load all stopwords (Originally the provided list, with some added, for
+    # question markers, coordinate-related words and words with phatic uses).
+    with (Path(__loader__.path).parent / "stopwords_fr.json").open() as file:
+        STOPWORDS = json.load(file)
 
     # We load messages available
-    with open(Path(__loader__.path).parent / "messages_fr.json") as file:
+    with (Path(__loader__.path).parent / "messages_fr.json").open() as file:
         MESSAGES_FR = json.load(file)
 
     # We use the list of punctuation from the string module, without the dash
@@ -46,32 +37,65 @@ class Query():
 
     def __init__(self, query):
         self.errors = []
+        self.error_message = ""
 
         self.query = self.purify_query(query)
         if not self.query:
-            self.errors.append("no-address")
-            self.message = ("Désolée, mais il ne me semble pas que tu m'ais "
-                            "demandé un lieu précis…")
-            return # Having no query except for stopwords is a fatal error
+            # If this path is taken, there was no content in the query
+            # except for punctuation and stopwords. This is a fatal error.
+            self.fatal_error_occured()
+            self.set_error_message("Désolée, mais il ne me semble pas que tu "
+                                   "m'ais demandé un lieu précis…")
+            return
 
         self.address = Address(self.query)
         if not self.address.status:
-            self.errors.append("no-address")
-            self.message = ("Désolée ! Il me semble que je ne connais pas ce "
-                            "dont tu parles…")
-            return # Having no address is a fatal error.
+            # If this path is taken, there was no address found for
+            # the query. This is a fatal error.
+            self.fatal_error_occured()
+            self.set_error_message("Désolée ! Il me semble que je ne connais "
+                                   "pas ce dont tu parles…")
+            return
 
         self.staticmap = self.address.get_staticmap()
-        if self.staticmap is None: # This is not a fatal error
-            self.errors.append("no-static-map")
+        if self.staticmap is None:
+            # If this path is taken, we couldn't get a staticmap for
+            # this address. This is not a fatal error.
+            self.error_occured("no-static-map")
 
         self.wikitext = WikiText(self.address.route)
-        if not self.wikitext.status: # This is not a fatal error
-            self.errors.append("no-wiki-text")
+        if not self.wikitext.status:
+            # If this path is taken, we couldn't get either a page
+            # or the text in this page from Wikipedia for the query.
+            # This is not a fatal error.
+            self.error_occured("no-wiki-text")
 
         # Assign a message to these informations
         self.messages = self.get_messages()
 
+    def set_error_message(self, message):
+        """
+        If there's an error message to get through,
+        that goes through here.
+        """
+        self.errors.append("error-message")
+        self.error_message = message
+
+    def fatal_error_occured(self):
+        """
+        A fatal error occured. We add all error messages
+        to the list.
+        """
+        self.error_occured("no-address")
+        self.error_occured("no-static-map")
+        self.error_occured("no-wiki-text")
+        
+    def error_occured(self, error):
+        """
+        Add an element to the list of errors.
+        """
+        self.errors.append(error)
+        
     def get_messages(self):
         """
         Assign a random message to the address and to the funfact.

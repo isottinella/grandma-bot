@@ -3,7 +3,7 @@
 # Filename: blueprint.py
 # Author: Louise <louise>
 # Created: Sat Apr 18 20:42:17 2020 (+0200)
-# Last-Updated: Thu Apr 23 17:55:07 2020 (+0200)
+# Last-Updated: Thu Apr 23 18:52:49 2020 (+0200)
 #           By: Louise <louise>
 #
 """
@@ -30,8 +30,9 @@ def query_endpoint():
     query = Query(request.args.get("query"))
 
     return jsonify({
-        "address": query.messages["address"],
-        "staticmap": query.staticmap,
-        "funfact": query.messages["funfact"],
         "errors": query.errors,
+        "error_message": query.error_message,
+        
+        "messages": getattr(query, "messages", None),
+        "staticmap": getattr(query, "staticmap", None)
     })

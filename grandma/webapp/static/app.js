@@ -19,16 +19,26 @@ function whatDidISay() {
 }
 
 function grandMaSays(data) {
-    someoneSays("[GrandMa] ", data.address);
+    // First we print the error message if there is one.
+    if (data.errors.indexOf("error-message") >= 0) {
+	someoneSays("[GrandMa] ", data.error_message);
+    }
+    
+    // Then the address message, if there is one
+    if (data.errors.indexOf("no-address") == -1) {
+	someoneSays("[GrandMa] ", data.messages.address);
+    }
 
+    // Then the static map,
     if (data.errors.indexOf("no-static-map") == -1) {
 	someoneSays("[GrandMa] ", ("<img src=\"" +
 				   data.staticmap +
 				   "\" />"));
     }
 
+    // Then the funfact.
     if (data.errors.indexOf("no-wiki-text") == -1) {
-	someoneSays("[GrandMa] ", data.funfact);
+	someoneSays("[GrandMa] ", data.messages.funfact);
     }
 }
 
