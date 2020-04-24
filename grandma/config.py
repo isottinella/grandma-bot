@@ -3,7 +3,7 @@
 # Filename: config.py
 # Author: Louise <louise>
 # Created: Sat Apr 18 20:49:13 2020 (+0200)
-# Last-Updated: Thu Apr 23 17:53:28 2020 (+0200)
+# Last-Updated: Fri Apr 24 15:12:59 2020 (+0200)
 #           By: Louise <louise>
 #
 """
@@ -31,11 +31,4 @@ class Config:
         'ENDPOINT': "https://fr.wikipedia.org/w/api.php",
     }
 
-    # Set this to production when you go into production
-    ENV = "development"
-
-    # Set this to false when you go into production
-    DEBUG = True
-
-    # Set this to true when you test
-    TESTING = True
+    ENV = "production"
