@@ -3,10 +3,19 @@
 ;; Filename: README.md
 ;; Author: Louise <louise>
 ;; Created: Sat Apr 18 18:42:21 2020 (+0200)
-;; Last-Updated: Fri Apr 24 15:19:19 2020 (+0200)
+;; Last-Updated: Fri Apr 24 15:29:36 2020 (+0200)
 ;;           By: Louise <louise>
  -->
 # Readme
+
+This package is a webapp implemented with Flask, consisting of a bot to whom you can
+ask questions (in French) to get the address of a place, and a little fact about the
+surroundings.
+
+Example questions include:
+
+ - Salut GrandMa ! Tu connais l'adresse de la cité des sciences ?
+ - GrandMa, je cherche le lycée Montaigne à Bordeaux ?
 
 ## Install
 Installing the package is done thusly: 
