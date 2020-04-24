@@ -11,7 +11,7 @@ from setuptools import setup
 setup(
     name='grandma',
     packages=['grandma'],
-    version="1.0"
+    version="1.0",
     include_package_data=True,
     install_requires=[
         'flask',
