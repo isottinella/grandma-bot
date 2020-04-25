@@ -3,7 +3,7 @@
 # Filename: __init__.py
 # Author: Louise <louise>
 # Created: Sun Apr 19 02:22:08 2020 (+0200)
-# Last-Updated: Thu Apr 23 20:45:32 2020 (+0200)
+# Last-Updated: Sat Apr 25 23:10:38 2020 (+0200)
 #           By: Louise <louise>
 #
 """
@@ -63,7 +63,7 @@ class Query():
             # this address. This is not a fatal error.
             self.error_occured("no-static-map")
 
-        self.wikitext = WikiText(self.address.route)
+        self.wikitext = WikiText(self.address)
         if not self.wikitext.status:
             # If this path is taken, we couldn't get either a page
             # or the text in this page from Wikipedia for the query.
@@ -215,16 +215,15 @@ class WikiText:
     Wikipedia. As for Address, if status is set to False all
     data is meaningless.
     """
-    def __init__(self, query):
+    def __init__(self, address):
         try:
-            if not query:
-                raise ValueError # There should be a query
+            query = (address.route
+                     if address.route
+                     else address.formatted_address)
 
             self.pageid = self.get_pageid(query)
             self.text = self.get_pagetext(self.pageid)
             self.status = True
-        except ValueError: # There was no query
-            self.status = False
         except KeyError: # Page returned by first call was bad
             self.status = False
         except IndexError: # No results
@@ -266,7 +265,8 @@ class WikiText:
             "prop": "extracts",
             "exlimit": 1,
             "explaintext": True,
-            "exintro": True
+            "exintro": True,
+            "exsentences": 3
         }
 
         res = requests.get(Config.WIKI_API["ENDPOINT"],

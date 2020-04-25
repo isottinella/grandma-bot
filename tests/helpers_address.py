@@ -3,7 +3,7 @@
 # Filename: address_helpers.py
 # Author: Louise <louise>
 # Created: Thu Apr 23 20:48:08 2020 (+0200)
-# Last-Updated: Thu Apr 23 20:48:46 2020 (+0200)
+# Last-Updated: Sat Apr 25 23:08:21 2020 (+0200)
 #           By: Louise <louise>
 #
 import json
@@ -47,3 +47,11 @@ def patch_address_empty(monkeypatch):
                     return json.load(file)
         return Dummy()
     monkeypatch.setattr(requests, "get", requests_get)
+
+def get_address(monkeypatch):
+    patch_address_openclassrooms(monkeypatch)
+    return Address("openclassrooms")
+
+def get_address_without_route(monkeypatch):
+    patch_address_without_route(monkeypatch)
+    return Address("openclassrooms")
